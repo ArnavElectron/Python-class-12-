@@ -1,9 +1,8 @@
 import pandas as pd 
 import numpy as np
-sec=["A","B","C","D","E"]
 
-s1=[]
-s2=[]
+s1=pd.Series((4570,4560,3460,2350),index=["p","q","r","s"])
+s2=pd.Series((321,432,532,1324,5343,123,421331))
 print("Attribute \t\tobject sl1\tobject sl2")
 print("--------------------------------------------------------------------------------")
 print('idnex(.index)\t:\t',s1.index,'\t\t',s2.index)
