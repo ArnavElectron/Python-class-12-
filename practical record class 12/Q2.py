@@ -12,7 +12,7 @@ print("data type(.dtype) \t:\t",s1.dtype,'\t\t',s2.dtype)
 print("shape (.shape) \t:\t",s1.shape,'\t\t',s2.shape)
 print("No. of bytes (.nbytes) \t:\t",s1.nbytes,'\t\t',s2.nbytes)
 print("No. of dimensions (.ndim) \t:\t",s1.ndim,'\t\t',s2.ndim)
-print("Item size (.itemsize) \t:\t",s1.itemsize'\t\t',s2.itemsize)
+
 print("Has NaNs? \t:\t",s1.hasnans,'\t\t',s2.hasnans)
 print("empty? (.empty) \t:\t",s1.empty,'\t\t',s2.empty)
 print("name (.name)\t\t",s1.name,'\t\t',s2.name)
