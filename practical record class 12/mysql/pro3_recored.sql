@@ -1,15 +1,14 @@
 #Q1
 create database STUDENT_PROJECT;
-
+use STUDENT_PROJECT
 #table 1
 create table STUDENT(
-RollNo int(4) primary key,
+RollNo int(4),
 Name varchar(20) NOT NULL,
 Stream varchar(20),
 Section char(1),
-RegistrationID varchar(10) unique
+RegistrationID varchar(10) primary KEY
 );
-
 insert into STUDENT VALUES
 (1,"Arathi Verma","Science",'A',"R1001"),
 (2, "Shreyas Jain","Commerce","B","R1002"),
@@ -21,30 +20,29 @@ insert into STUDENT VALUES
 
 #Table 2
 create table PROJECT_ASSIGNED(
-RegistrationID varchar(10),
-projectID char(2) PRIMARY KEY,
+RegistrationID varchar(10) ,
+projectID char(2),
 AssignDate date,
 Marks int(3),
-CONSTRAINT FK_1 FOREIGN KEY (RegistrationID)
-REFERENCES STUDENT(RegistrationID));
+CONSTRAINT FK_1 FOREIGN KEY (projectID) REFERENCES PROJECT(projectID),
+CONSTRAINT FK_2 FOREIGN KEY (RegistrationID) REFERENCES student(RegistrationID)
+);
 
 insert into PROJECT_ASSIGNED values
 ("R1001","P1","2019-11-21",30),
 ("R1002","P2","2020-06-24",70),
 ("R1003","P3","2020-07-23",100),
-("R1004","P4","2020-06-14",30),
-("R1005","P5","2020-05-18",70),
-("R1006","P6","2020-05-23",100);
+("R1004","P1","2020-06-14",30),
+("R1005","P2","2020-05-18",70),
+("R1006","P3","2020-05-23",100);
 
 #Table 3
 Create table PROJECT(
-projectID char(2),
+projectID char(2) PRIMARY KEY,
 ProjectName VARCHAR(20),
 SubmissionDate DATE,
 TeamSize int(2),
-GuideTeacher VARCHAR(20) PRIMARY KEY,
-CONSTRAINT FK_2 FOREIGN KEY (projectID)
-REFERENCES PROJECT_ASSIGNED(projectID)
+GuideTeacher VARCHAR(20)
 );
 
 INSERT into PROJECT VALUES
@@ -73,7 +71,8 @@ select *  from STUDENT,PROJECT_ASSIGNED;
 #7
 select *  from STUDENT,PROJECT_ASSIGNED where STUDENT.RegistrationID=PROJECT_ASSIGNED.RegistrationID;
 #8
-select STUDENT.name from STUDENT,PROJECT where Stream="Comerce" AND PROJECT.GuideTeacher="%";
+select STUDENT.name from STUDENT,PROJECT where Stream="commerce" AND PROJECT.GuideTeacher like"%";
+select STUDENT.name from STUDENT,PROJECT where Stream="commerce" AND PROJECT.GuideTeacher=(SELECT GuideTeacher from project,project_assigned,student where project.projectid=(select project_assigned.projectid from project_assigned,student where stream="commerce"));
 #9
 select count(Name),stream from student where stream="Science" OR stream="Commerce" group by stream;
 #10
@@ -81,3 +80,4 @@ SELECT sum(PROJECT_ASSIGNED.marks),avg(PROJECT_ASSIGNED.marks),stream from stude
 #11
 SELECT  max(PROJECT_ASSIGNED.marks),min(PROJECT_ASSIGNED.marks),stream from student,PROJECT_ASSIGNED group by stream;
 #12
+SELECT rollno,Name,student.Registrationid,project.projectid from project,project_assigned,student where stream="Science";
